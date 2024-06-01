@@ -11,8 +11,6 @@ miner = blockchain_pm.mine_block(coin.blockchain.difficulty, coin.blockchain.cha
 
 public_key = coin.wallets.create_wallet()
 
-print(public_key)
-
-coin.blockchain.chain = miner.mine(blockchain_pm.Block(len(coin.blockchain.chain), time.time(), f"{public_key} {coin.halving()}", coin.blockchain.chain[-1].hash))
+coin.blockchain.chain = miner.mine(blockchain_pm.Block(len(coin.blockchain.chain), time.time(), f"{public_key}", coin.blockchain.chain[-1].hash, coins=coin.halving()))
 blockchain_pm.save_blockchain(coin.blockchain, 'blockchain.xlsx')
 blockchain_pm.save_wallets(coin.wallets, 'wallets.xlsx')

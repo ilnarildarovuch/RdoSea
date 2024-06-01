@@ -3,12 +3,13 @@ from miner import mine_block
 from save import open_blockchain, save_blockchain, open_wallets, save_wallets
 
 class Block:
-    def __init__(self, index, timestamp, data, previous_hash):
+    def __init__(self, index, timestamp, data, previous_hash, nonce=0, coins=0):
         self.index = index
         self.timestamp = timestamp
         self.data = data
         self.previous_hash = previous_hash
-        self.nonce = 0
+        self.nonce = nonce
+        self.coins = coins
         self.hash = self.calculate_hash()
 
     def calculate_hash(self):
@@ -18,6 +19,6 @@ class Block:
 class BlockChain:
     def __init__(self):
         self.chain = []
-        self.difficulty = 4
+        self.difficulty = 5
     def __len__(self):
         return len(self.chain)

@@ -12,6 +12,7 @@ def save_blockchain(blockchain, file_name):
         sheet.cell(row=i+1, column=4, value=block.previous_hash)
         sheet.cell(row=i+1, column=5, value=block.hash)
         sheet.cell(row=i+1, column=6, value=block.nonce)
+        sheet.cell(row=i+1, column=7, value=block.coins)
 
     wb.save(file_name)
 
@@ -23,7 +24,8 @@ def open_blockchain(file_name, blockchain, Block):
             index=sheet.cell(row=i, column=1).value,
             timestamp=sheet.cell(row=i, column=2).value,
             data=sheet.cell(row=i, column=3).value,
-            previous_hash=sheet.cell(row=i, column=4).value
+            previous_hash=sheet.cell(row=i, column=4).value,
+            coins=sheet.cell(row=i, column=7).value
         )
         block.hash = sheet.cell(row=i, column=5).value
         block.nonce = sheet.cell(row=i, column=6).value
