@@ -7,6 +7,7 @@ class mine_block:
         new_block.previous_hash = self.chain[-1].hash
         block_mined = self.mine_block(new_block, self.difficulty)
         self.chain.append(block_mined)
+        self.chain.sort(key=lambda x: x.coins, reverse=True)
         return self.chain
 
     def mine_block(self, block, difficulty):
