@@ -19,3 +19,5 @@ class BlockChain:
     def __init__(self):
         self.chain = []
         self.difficulty = 4
+    def __len__(self):
+        return len(self.chain)
