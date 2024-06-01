@@ -1,4 +1,5 @@
 from blockchain_pm import BlockChain
+from wallet import Wallets
 
 class RD:
     def __init__(self):
@@ -6,6 +7,7 @@ class RD:
         self.value = 345552 # per block
         self.halving_cycle = 21000
         self.halving_count = 0
+        self.wallets = Wallets()
 
     def halving(self):
         self.chain_size = len(self.blockchain)

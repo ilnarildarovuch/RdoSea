@@ -29,3 +29,27 @@ def open_blockchain(file_name, blockchain, Block):
         block.nonce = sheet.cell(row=i, column=6).value
         blockchain.chain.append(block)
     return blockchain
+
+def save_wallets(wallets, file_name):
+    wb = openpyxl.Workbook()
+    sheet = wb.active
+
+    # Write wallet data to excel
+    for i, wallet in enumerate(wallets.wallets, start=1):
+        sheet.cell(row=i, column=1, value=list(wallet.values())[0])
+        sheet.cell(row=i, column=2, value=list(wallet.keys())[0])
+
+    wb.save(file_name)
+    wb.save(file_name)
+
+def open_wallets(file_name, Wallets):
+    workbook = openpyxl.load_workbook(file_name)
+    worksheet = workbook.active
+    wallets = Wallets()
+    for row in range(1, worksheet.max_row + 1):
+        public_key = worksheet.cell(row=row, column=1).value
+        private_key = worksheet.cell(row=row, column=2).value
+        wallets.wallets.append({private_key: public_key})        
+
+    return wallets
+

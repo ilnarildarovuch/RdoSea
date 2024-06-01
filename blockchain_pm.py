@@ -1,6 +1,6 @@
 import hashlib
 from miner import mine_block
-from save_blocks import open_blockchain, save_blockchain
+from save import open_blockchain, save_blockchain, open_wallets, save_wallets
 
 class Block:
     def __init__(self, index, timestamp, data, previous_hash):
