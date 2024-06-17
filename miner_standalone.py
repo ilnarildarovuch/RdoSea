@@ -41,5 +41,4 @@ while True:
         block.nonce += 1
         block.hash = block.calculate_hash()
     print("Mined block at nonce: " + str(block.nonce))
-
     print(requests.get(f"http://127.0.0.1:5000/send_block?index={block.index}&timestamp={block.timestamp}&data={block.data}&previous_hash={block.previous_hash}&nonce={block.nonce}&hash={block.hash}").text)
