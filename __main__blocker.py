@@ -1,10 +1,13 @@
+import sys
+
+sys.path.insert(0, 'blockchain')
+
 import blockchain_pm
 import time
 import crypto
 import wallet
 import uvicorn
 from fastapi import FastAPI
-import json
 
 app = FastAPI()
 coin = crypto.RD()

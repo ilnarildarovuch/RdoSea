@@ -25,21 +25,31 @@ class BlockChain:
         return len(self.chain)
     
     def add_block(self, block):
-        if block.hash != block.calculate_hash():
-            print("HASH")
-            return "BAD"
+        if block in self.chain:
+            return "BAD", "BLOCK_ALREADY_EXISTS"
         
+        if block.hash != block.calculate_hash():
+            return "BAD", "HASH_ERROR"
+        
+        found_nonce = False
+        for i in range(block.nonce + 1):
+            temp_block = Block(block.index, block.timestamp, block.data, block.previous_hash, i, block.coins)
+            if temp_block.hash[:self.difficulty] == "0" * self.difficulty:
+                found_nonce = True
+                break
+        if not found_nonce:
+            return "BAD", "INVALID_NONCE"
+
         if block.previous_hash != self.chain[-1].hash:
-            print("PREVIOUS HASH")
-            return "BAD"
+            return "BAD", "INVALID_PREVIOUS_HASH"
         
         if block.hash[:self.difficulty] != "0" * self.difficulty:
-            print("DIFFICULTY")
-            return "BAD"
+            return "BAD", "INVALID_DIFFICULTY"
         
-        if block.index < self.chain[-1].index:
-            if block.hash in self.chain:
-                return "UNCLE"
-            print("INDEX")
-            return "BAD"
+        if block.index < len(self) - 1:
+            return "BAD", "INDEX_ERROR"
+
+        if block.timestamp < self.chain[-1].timestamp:
+            return "BAD", "INVALID_TIMESTAMP"
+        self.chain.append(block)
         return "GOOD"

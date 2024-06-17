@@ -1,3 +1,7 @@
+import sys
+
+sys.path.insert(0, 'blockchain')
+
 import blockchain_pm
 import time
 import crypto

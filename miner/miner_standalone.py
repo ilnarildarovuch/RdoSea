@@ -17,7 +17,7 @@ class Block:
 
 public_key = input("Enter your public key :> ")
 
-# My hash 407b96c5f0f3445ffd4e59787c6bb17454f25fc9cbd622a81ea1257bf8ddc1acf0d5817c5868306205db37d80c72bdd20be0bb2946ab8d7e723dbf75b99f9f26
+# Now it's our hash 407b96c5f0f3445ffd4e59787c6bb17454f25fc9cbd622a81ea1257bf8ddc1acf0d5817c5868306205db37d80c72bdd20be0bb2946ab8d7e723dbf75b99f9f26
 #    ╱|、
 #   (˚ˎ 。7  
 #    |、˜〵          
