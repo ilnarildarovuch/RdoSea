@@ -34,9 +34,10 @@ def get_blockchain_mine(index: int, timestamp: float, data, previous_hash, nonce
     block.nonce = nonce
     block.coins = coin.halving()
     block.hash = hash
+    answer = coin.blockchain.add_block(block)
     blockchain_pm.save_blockchain(coin.blockchain, 'blockchain.xlsx')
     blockchain_pm.save_wallets(coin.wallets, 'wallets.xlsx')    
-    return coin.blockchain.add_block(block)
+    return answer
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=5000)

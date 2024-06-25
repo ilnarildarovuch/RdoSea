@@ -10,6 +10,7 @@ class Block:
         self.previous_hash = previous_hash
         self.nonce = nonce
         self.coins = coins
+        self.mine = 1
         self.hash = self.calculate_hash()
 
     def calculate_hash(self):
@@ -20,6 +21,7 @@ class BlockChain:
     def __init__(self):
         self.chain = []
         self.difficulty = 5
+        # genesis 0	0	Good is good	125beb350e897116515abe527f24332e00426ba521c3dee3ea029f48ac6086108283f1b1ff0277802f4d21d2779b1064f822aceca19ab5d5686aba6eafc4589c	fa03ab728dbd40ea6723fb708299f2e50d9d73df8c290639dd2165bf38ac3ce0bbdc6efe2a40a5b20e962ab98ce96bf89ee10fd2a39588d27c043c755d78d921	0	0	0
 
     def __len__(self):
         return len(self.chain)
@@ -30,15 +32,6 @@ class BlockChain:
         
         if block.hash != block.calculate_hash():
             return "BAD", "HASH_ERROR"
-        
-        found_nonce = False
-        for i in range(block.nonce + 1):
-            temp_block = Block(block.index, block.timestamp, block.data, block.previous_hash, i, block.coins)
-            if temp_block.hash[:self.difficulty] == "0" * self.difficulty:
-                found_nonce = True
-                break
-        if not found_nonce:
-            return "BAD", "INVALID_NONCE"
 
         if block.previous_hash != self.chain[-1].hash:
             return "BAD", "INVALID_PREVIOUS_HASH"

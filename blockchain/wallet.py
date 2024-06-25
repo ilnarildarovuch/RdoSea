@@ -1,20 +1,28 @@
 import hashlib
 import os
-import requests
 import time
 
 class Wallets:
     def __init__(self):
         super().__init__()
         self.wallets = []
-    def create_wallet(self):
+    def create_wallet(self, block):
         while True:
-            private_key = hashlib.sha512(requests.get("http://www.randomnumberapi.com/api/v1.0/random?min=100&max=10000&count=15").text.encode() + os.urandom(128)).hexdigest()
+            private_key = hashlib.sha512(os.urandom(512) + os.urandom(128) + block.hash.encode() * 3 + str(block.nonce).encode()).hexdigest()
             if private_key not in self.wallets:
                 break
         public_key = hashlib.sha512(private_key.encode()).hexdigest()
         self.wallets.append({private_key: public_key})
-        return public_key
+        
+        wallet_block = block
+        wallet_block.index = block.index + 2
+        wallet_block.mine = 0
+        wallet_block.data = public_key
+        wallet_block.coins = 0
+        wallet_block.previous_hash = block.hash
+        wallet_block.hash = block.calculate_hash()
+
+        return public_key, wallet_block
     def get_coins_from_account(self, chain, wallet):
         coins = 0
         for i in chain:
